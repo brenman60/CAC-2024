@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private RoomManager[] rooms;
+    [SerializeField] private Vector3 cameraRoomOffset;
+    [Space(20), SerializeField] private RoomManager[] rooms;
     private RoomManager currentRoom;
 
     private Camera mainCam;
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
         dragging = dragging_;
 
         if (!dragging)
-            mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, new Vector3(currentRoom.transform.position.x, mainCam.transform.position.y, mainCam.transform.position.z), Time.deltaTime * 20f);
+            mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, new Vector3(currentRoom.transform.position.x, mainCam.transform.position.y, mainCam.transform.position.z) + cameraRoomOffset, Time.deltaTime * 20f);
     }
 
     public void ScreenTouch(InputAction.CallbackContext obj)
@@ -63,7 +64,6 @@ public class GameManager : MonoBehaviour
             else if ((room.transform.position - mainCam.transform.position).sqrMagnitude < (closestRoom.transform.position - mainCam.transform.position).sqrMagnitude)
                 closestRoom = room;
 
-        print("Snapping to: " + closestRoom);
         currentRoom = closestRoom;
     }
 }
