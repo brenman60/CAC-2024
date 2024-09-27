@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System;
 using UnityEngine;
 using AESEncryption;
+using System.Collections.Generic;
 
 public static class SaveSystem
 {
@@ -34,8 +35,21 @@ public static class SaveSystem
     private const string settingFileName = "settings";
     private const string gameDataFileName = "gData";
 
+    private static readonly Dictionary<PresetFile, string> presetFiles = new Dictionary<PresetFile, string>()
+    {
+        [PresetFile.Settings] = settingsPath,
+        [PresetFile.GameData] = gameDataPath,
+    };
+
+    public static async Task<bool> WriteToFile(PresetFile presetFile, string data)
+    {
+        return await WriteToFile(presetFiles[presetFile], data);
+    }
+
     public static async Task<bool> WriteToFile(string filePath, string data)
     {
+        if (string.IsNullOrEmpty(data)) return false;
+
         try
         {
             using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate))
@@ -56,8 +70,15 @@ public static class SaveSystem
         }
     }
 
+    public static async Task<string> ReadFromFile(PresetFile presetFile)
+    {
+        return await ReadFromFile(presetFiles[presetFile]);
+    }
+
     public static async Task<string> ReadFromFile(string filePath)
     {
+        if (!File.Exists(filePath)) return null;
+
         try
         {
             using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate))
@@ -77,4 +98,10 @@ public static class SaveSystem
             return null;
         }
     }
+}
+
+public enum PresetFile
+{
+    Settings,
+    GameData,
 }
