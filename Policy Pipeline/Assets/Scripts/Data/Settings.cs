@@ -9,7 +9,7 @@ public class Settings : ISaveData
     };
 
     public PlayerInput playerInput { get; private set; }
-    public InputAction inputTouch { get; private set; }
+    public InputAction inputClick { get; private set; }
 
     private readonly JsonSerializerSettings serializeSettings = new JsonSerializerSettings()
     {
@@ -25,13 +25,14 @@ public class Settings : ISaveData
         playerInput = new PlayerInput();
         playerInput.Enable();
 
-        inputTouch = playerInput.Mouse.Click;
-        inputTouch.Enable();
+        inputClick = playerInput.Mouse.Click;
+        inputClick.Enable();
     }
 
     ~Settings()
     {
-        inputTouch.Disable();
+        playerInput.Disable();
+        inputClick.Disable();
     }
 
     public string GetSaveData()
