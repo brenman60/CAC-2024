@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour
         dragging = dragging_;
 
         if (!dragging)
-            mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, new Vector3(currentRoom.transform.position.x, currentRoom.transform.position.y, mainCam.transform.position.z) + cameraRoomOffset, Time.deltaTime * 20f);
+            mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, new Vector3(currentRoom.transform.position.x, currentRoom.transform.position.y, currentRoom.transform.position.z) + cameraRoomOffset, Time.deltaTime * 5f);
     }
 
     public void ScreenTouch(InputAction.CallbackContext obj)
     {
-        print("Screen touched");
+        
     }
 
     private IEnumerator DragCamera()

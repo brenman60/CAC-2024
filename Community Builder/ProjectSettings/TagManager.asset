@@ -41,6 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Room1
+    uniqueID: 4043112581
+    locked: 0
+  - name: Room2
+    uniqueID: 2064953875
+    locked: 0
+  - name: Room3
+    uniqueID: 313172685
+    locked: 0
+  - name: Room4
+    uniqueID: 2518540923
+    locked: 0
+  - name: RoomWalls
+    uniqueID: 4091552835
+    locked: 0
   - name: UI
     uniqueID: 95036783
     locked: 0
