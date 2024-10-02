@@ -4,18 +4,17 @@ using UnityEngine.InputSystem;
 
 public class Settings : ISaveData
 {
-    public Dictionary<SettingType, object> settings = new Dictionary<SettingType, object>()
+    public Dictionary<SettingType, object> settings = new Dictionary<SettingType, object>();
+
+    private Dictionary<SettingType, object> defaultSettings { get; } = new Dictionary<SettingType, object>()
     {
+
     };
+
+    public bool saveLoaded { get; private set; }
 
     public PlayerInput playerInput { get; private set; }
     public InputAction inputClick { get; private set; }
-
-    private readonly JsonSerializerSettings serializeSettings = new JsonSerializerSettings()
-    {
-        TypeNameHandling = TypeNameHandling.Auto,
-        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-    };
 
     public Settings()
     {
@@ -37,14 +36,20 @@ public class Settings : ISaveData
 
     public string GetSaveData()
     {
-        return JsonConvert.SerializeObject(settings, serializeSettings);
+        return JsonConvert.SerializeObject(settings, SaveSystem.serializeSettings);
     }
 
     public void PutSaveData(string saveData)
     {
-        if (saveData == null) return;
+        settings = defaultSettings;
+        if (saveData == null || string.IsNullOrEmpty(saveData)) { saveLoaded = true; return; }
 
-        settings = JsonConvert.DeserializeObject<Dictionary<SettingType, object>>(saveData, serializeSettings);
+        Dictionary<SettingType, object> savedSettings = JsonConvert.DeserializeObject<Dictionary<SettingType, object>>(saveData, SaveSystem.serializeSettings);
+        foreach (KeyValuePair<SettingType, object> savedSetting in savedSettings)
+            if (settings.ContainsKey(savedSetting.Key))
+                settings[savedSetting.Key] = savedSetting.Value;
+
+        saveLoaded = true;
     }
 }
 

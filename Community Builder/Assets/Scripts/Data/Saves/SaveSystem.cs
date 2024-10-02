@@ -4,9 +4,16 @@ using System;
 using UnityEngine;
 using AESEncryption;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public static class SaveSystem
 {
+    public static JsonSerializerSettings serializeSettings { get; } = new JsonSerializerSettings()
+    {
+        TypeNameHandling = TypeNameHandling.All,
+        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+    };
+
     public static string mainPath
     {
         get

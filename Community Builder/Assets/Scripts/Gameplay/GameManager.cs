@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public static event EventHandler screenTapped;
+
     [SerializeField] private Vector3 cameraRoomOffset;
+    [SerializeField] private Vector3 cameraRoomRotation;
     [Space(20), SerializeField] private RoomManager[] rooms;
     private RoomManager currentRoom;
 
@@ -28,12 +32,15 @@ public class GameManager : MonoBehaviour
         dragging = dragging_;
 
         if (!dragging)
+        {
             mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, new Vector3(currentRoom.transform.position.x, currentRoom.transform.position.y, currentRoom.transform.position.z) + cameraRoomOffset, Time.deltaTime * 5f);
+            mainCam.transform.rotation = Quaternion.Slerp(mainCam.transform.rotation, Quaternion.Euler(cameraRoomRotation.x, cameraRoomRotation.y, cameraRoomRotation.z), Time.deltaTime * 5f);
+        }
     }
 
     public void ScreenTouch(InputAction.CallbackContext obj)
     {
-        
+        screenTapped?.Invoke(this, null);
     }
 
     private IEnumerator DragCamera()

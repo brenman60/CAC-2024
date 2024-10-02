@@ -17,7 +17,18 @@ public class SaveSystemManager : MonoBehaviour
         }
     }
 
-    public Settings settings;
+    public static bool loaded
+    {
+        get
+        {
+            return Instance.loaded_;
+        }
+    }
+
+    public Settings settings { get; private set; }
+    public GameData gameData { get; private set; }
+
+    private bool loaded_ = false;
 
     private float queuedSave = 0;
 
@@ -25,5 +36,16 @@ public class SaveSystemManager : MonoBehaviour
     {
         settings = new Settings();
         settings.PutSaveData(await SaveSystem.ReadFromFile(PresetFile.Settings));
+
+        gameData = new GameData();
+        gameData.PutSaveData(await SaveSystem.ReadFromFile(PresetFile.GameData));
+
+        loaded_ = true;
+    }
+
+    private async void OnApplicationQuit()
+    {
+        await SaveSystem.WriteToFile(PresetFile.Settings, settings.GetSaveData());
+        await SaveSystem.WriteToFile(PresetFile.GameData, gameData.GetSaveData());
     }
 }
