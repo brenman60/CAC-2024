@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameData : ISaveData
 {
@@ -10,7 +9,7 @@ public class GameData : ISaveData
     public Dictionary<object, object> defaultGameData = new Dictionary<object, object>()
     {
         ["Money"] = 0f,
-        [UniversalUpgrade.TouchTimeIncrease] = 1,
+        ["TouchTimeIncrease"] = 1,
     };
 
     public bool saveLoaded { get; private set; }
@@ -40,13 +39,6 @@ public class GameData : ISaveData
         foreach (KeyValuePair<object, object> savedData in savedGameData)
             gameData[savedData.Key] = savedData.Value;
 
-        Debug.Log(JsonConvert.SerializeObject(gameData));
-
         saveLoaded = true;
     }
-}
-
-public enum UniversalUpgrade
-{
-    TouchTimeIncrease,
 }

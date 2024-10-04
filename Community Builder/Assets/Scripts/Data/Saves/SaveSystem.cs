@@ -59,7 +59,7 @@ public static class SaveSystem
 
         try
         {
-            using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate))
+            using (FileStream stream = File.Exists(filePath) ? new FileStream(filePath, FileMode.Truncate) : File.Create(filePath))
             {
                 using (StreamWriter writer = new StreamWriter(stream))
                 {

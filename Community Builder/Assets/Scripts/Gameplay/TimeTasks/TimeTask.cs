@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public abstract class TimeTask : MonoBehaviour
 {
+    [Header("Customization")]
     [SerializeField] private float completionTime = 5f;
     [SerializeField] private UnityEvent completionEvent;
 
     public float time { get; protected set; }
+    public float maxTime { get { return completionTime; } }
     protected bool paused;
 
     protected virtual void Awake()
@@ -16,7 +19,7 @@ public abstract class TimeTask : MonoBehaviour
 
     private void ScreenTapped(object sender, System.EventArgs e)
     {
-        int touchTimeIncrease = SaveSystemManager.Instance.gameData.GetData<int, UniversalUpgrade>(UniversalUpgrade.TouchTimeIncrease);
+        int touchTimeIncrease = SaveSystemManager.Instance.gameData.GetData<int, string>("TouchTimeIncrease");
         IncreaseTime(touchTimeIncrease);
     }
 
@@ -25,7 +28,7 @@ public abstract class TimeTask : MonoBehaviour
         if (!paused)
             time += Time.deltaTime;
 
-
+        CheckTime();
     }
 
     private void CheckTime()
