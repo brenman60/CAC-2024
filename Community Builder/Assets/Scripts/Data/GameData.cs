@@ -27,7 +27,13 @@ public class GameData : ISaveData
 
     public string GetSaveData()
     {
-        return JsonConvert.SerializeObject(gameData, SaveSystem.serializeSettings);
+        string[] saveData = new string[2]
+        {
+            JsonConvert.SerializeObject(gameData, SaveSystem.serializeSettings),
+            GameManager.Instance.GetSaveData(),
+        };
+
+        return JsonConvert.SerializeObject(saveData, SaveSystem.serializeSettings);
     }
 
     public void PutSaveData(string saveData)
@@ -35,9 +41,13 @@ public class GameData : ISaveData
         gameData = defaultGameData;
         if (saveData == null || string.IsNullOrEmpty(saveData)) { saveLoaded = true; return; }
 
-        Dictionary<object, object> savedGameData = JsonConvert.DeserializeObject<Dictionary<object, object>>(saveData, SaveSystem.serializeSettings);
+        string[] saveData_ = JsonConvert.DeserializeObject<string[]>(saveData, SaveSystem.serializeSettings);
+
+        Dictionary<object, object> savedGameData = JsonConvert.DeserializeObject<Dictionary<object, object>>(saveData_[0], SaveSystem.serializeSettings);
         foreach (KeyValuePair<object, object> savedData in savedGameData)
             gameData[savedData.Key] = savedData.Value;
+
+        GameManager.Instance.PutSaveData(saveData_[1]);
 
         saveLoaded = true;
     }

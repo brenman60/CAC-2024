@@ -56,6 +56,9 @@ TagManager:
   - name: RoomWalls
     uniqueID: 4091552835
     locked: 0
+  - name: AboveRoom
+    uniqueID: 2546882915
+    locked: 0
   - name: UI
     uniqueID: 95036783
     locked: 0

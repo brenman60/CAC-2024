@@ -1,11 +1,15 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ISaveData
 {
-    public static event EventHandler screenTapped;
+    public static GameManager Instance { get; private set; }
+
+    public static event EventHandler<RoomManager> screenTapped;
 
     [SerializeField] private Vector3 cameraRoomOffset;
     [SerializeField] private Vector3 cameraRoomRotation;
@@ -15,6 +19,11 @@ public class GameManager : MonoBehaviour
     private Camera mainCam;
 
     private bool dragging;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -40,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void ScreenTouch(InputAction.CallbackContext obj)
     {
-        screenTapped?.Invoke(this, null);
+        screenTapped?.Invoke(this, currentRoom);
     }
 
     private IEnumerator DragCamera()
@@ -72,5 +81,39 @@ public class GameManager : MonoBehaviour
                 closestRoom = room;
 
         currentRoom = closestRoom;
+    }
+
+    public string GetSaveData()
+    {
+        List<string> roomsData = new List<string>();
+        foreach (RoomManager roomManager in rooms)
+        {
+            string[] roomData = new string[2]
+            {
+                roomManager.name,
+                roomManager.GetSaveData(),
+            };
+
+            roomsData.Add(JsonConvert.SerializeObject(roomData, SaveSystem.serializeSettings));
+        }
+
+        return JsonConvert.SerializeObject(roomsData, SaveSystem.serializeSettings);
+    }
+
+    public void PutSaveData(string saveData)
+    {
+        List<string> roomsData = JsonConvert.DeserializeObject<List<string>>(saveData, SaveSystem.serializeSettings);
+        foreach (string roomData_ in roomsData)
+        {
+            string[] roomData = JsonConvert.DeserializeObject<string[]>(roomData_, SaveSystem.serializeSettings);
+            foreach (RoomManager roomManager in rooms)
+            {
+                if (roomManager.name == roomData[0])
+                {
+                    roomManager.PutSaveData(roomData[1]);
+                    break;
+                }
+            }
+        }
     }
 }
