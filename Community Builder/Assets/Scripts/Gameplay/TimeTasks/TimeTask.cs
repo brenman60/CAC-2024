@@ -14,7 +14,7 @@ public class TimeTask : MonoBehaviour, ISaveData
     public float maxTime { get { return completionTime; } }
     protected bool paused;
 
-    private RoomManager taskRoom;
+    protected RoomManager taskRoom;
 
     protected virtual void Awake()
     {
@@ -22,7 +22,7 @@ public class TimeTask : MonoBehaviour, ISaveData
         GameManager.screenTapped += ScreenTapped;
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         taskRoom = GetComponentInParent<RoomManager>();
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour, ISaveData
 {
     [SerializeField] private List<TimeTask> tasks = new List<TimeTask>();
+    public GameObject roomDoor;
 
     public string GetSaveData()
     {
