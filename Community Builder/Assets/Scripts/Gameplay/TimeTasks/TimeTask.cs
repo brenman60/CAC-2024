@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
 public class TimeTask : MonoBehaviour, ISaveData
@@ -7,8 +8,18 @@ public class TimeTask : MonoBehaviour, ISaveData
     [SerializeField] private float completionTime = 5f;
     [SerializeField] protected float defaultEarnings = 1f;
 
-    public int speedLevel { get; private set; } = 1;
-    public int earningsLevel { get; private set; } = 1;
+    public event Action levelChanged;
+
+    private int level_ = 1;
+    public int level
+    {
+        get { return level_; }
+        private set
+        {
+            levelChanged?.Invoke();
+            level_ = value;
+        }
+    }
 
     public float time { get; protected set; }
     public float maxTime { get { return completionTime; } }
@@ -18,7 +29,7 @@ public class TimeTask : MonoBehaviour, ISaveData
 
     protected virtual void Awake()
     {
-        time = Random.Range(0f, completionTime);
+        time = UnityEngine.Random.Range(0f, completionTime);
         GameManager.screenTapped += ScreenTapped;
     }
 
@@ -30,6 +41,7 @@ public class TimeTask : MonoBehaviour, ISaveData
     private void ScreenTapped(object sender, RoomManager currentRoom)
     {
         if (currentRoom != taskRoom) return;
+        if (!SaveSystemManager.loaded) return;
 
         int touchTimeIncrease = SaveSystemManager.Instance.gameData.GetData<int, string>("TouchTimeIncrease");
         IncreaseTime(touchTimeIncrease);
@@ -38,7 +50,7 @@ public class TimeTask : MonoBehaviour, ISaveData
     protected virtual void Update()
     {
         if (!paused)
-            time += Time.deltaTime * speedLevel;
+            time += Time.deltaTime * Mathf.Clamp(level / 1.5f, 0, int.MaxValue);
 
         CheckTime();
     }
@@ -59,17 +71,18 @@ public class TimeTask : MonoBehaviour, ISaveData
 
     public virtual void OnCompletion()
     {
+        if (!SaveSystemManager.loaded) return;
+
         float currentMoney = SaveSystemManager.Instance.gameData.GetData<float, string>("Money");
-        SaveSystemManager.Instance.gameData.SetData("Money", currentMoney + (defaultEarnings * earningsLevel));
+        SaveSystemManager.Instance.gameData.SetData("Money", currentMoney + (defaultEarnings * Mathf.Pow(level, 1.5f)));
     }
 
     public string GetSaveData()
     {
-        string[] dataPoints = new string[3]
+        string[] dataPoints = new string[2]
         {
             time.ToString(),
-            speedLevel.ToString(),
-            earningsLevel.ToString(),
+            level_.ToString(),
         };
 
         return JsonConvert.SerializeObject(dataPoints, SaveSystem.serializeSettings);
@@ -79,7 +92,6 @@ public class TimeTask : MonoBehaviour, ISaveData
     {
         string[] dataPoints = JsonConvert.DeserializeObject<string[]>(saveData, SaveSystem.serializeSettings);
         time = float.Parse(dataPoints[0]);
-        speedLevel = int.Parse(dataPoints[1]);
-        earningsLevel = int.Parse(dataPoints[2]);
+        level_ = int.Parse(dataPoints[1]);
     }
 }

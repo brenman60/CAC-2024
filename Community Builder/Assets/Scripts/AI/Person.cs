@@ -1,16 +1,18 @@
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Person : MonoBehaviour
 {
-    public PersonUse use;
-    public RoomManager spawnedRoom;
+    [HideInInspector] public PersonUse use;
+    [HideInInspector] public RoomManager spawnedRoom;
 
     [SerializeField] private Animator shadowAnimator;
 
     private AIPath aiPath;
     private AIDestinationSetter destinationSetter;
     private Animator animator;
+    private SortingGroup sortingGroup;
 
     private Vector3 targetPosition = new Vector3(0, 0, 4);
     private float timeStill = -1f;
@@ -24,10 +26,13 @@ public class Person : MonoBehaviour
         animator = GetComponent<Animator>();
         aiPath = GetComponent<AIPath>();
         destinationSetter = GetComponent<AIDestinationSetter>();
+        sortingGroup = GetComponent<SortingGroup>();
     }
 
     private void Update()
     {
+        sortingGroup.sortingOrder = -Mathf.RoundToInt(transform.position.y * 1000) - 10000;
+
         destinationSetter.target.position = targetPosition;
 
         animator.SetBool("walking", aiPath.desiredVelocity != Vector3.zero);
@@ -46,7 +51,7 @@ public class Person : MonoBehaviour
             timeStill = -1f;
             aiPath.canMove = true;
             state = PersonState.MovingToDoor;
-            UpdateTargetPosition(spawnedRoom.roomDoor.transform.position, 0f);
+            UpdateTargetPosition(spawnedRoom.roomDoor.transform.position, 0f, 0f);
         }
         else if (state == PersonState.MovingToTask && timeStill > 0)
         {
@@ -59,10 +64,10 @@ public class Person : MonoBehaviour
         }
     }
 
-    public void UpdateTargetPosition(Vector2 newPosition, float positionVariation)
+    public void UpdateTargetPosition(Vector2 newPosition, float xPositionVariation, float yPositionVariation)
     {
         targetPosition = newPosition;
-        targetPosition += new Vector3(Random.Range(-positionVariation, positionVariation), Random.Range(-positionVariation, positionVariation), 0);
+        targetPosition += new Vector3(Random.Range(-xPositionVariation, xPositionVariation), Random.Range(-yPositionVariation, yPositionVariation), 0);
     }
 }
 
