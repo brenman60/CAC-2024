@@ -36,11 +36,12 @@ public class SignUpStation : TimeTask
         if (personCooldown > 0) return;
         personCooldown = 1.25f;
 
-        GameObject newPerson = Instantiate(personPrefab, transform);
-        Person person = newPerson.GetComponent<Person>();
-        person.use = PersonUse.MoveToAndPerformThenLeave;
-        person.spawnedRoom = taskRoom;
-        newPerson.transform.position = taskRoom.roomDoor.transform.position;
-        person.UpdateTargetPosition(transform.position + new Vector3(0, 2.5f), 2.5f, 0.25f);
+        PersonManager.Instance.SpawnPerson(new System.Collections.Generic.List<PersonNode>()
+        {
+            new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, false),
+            new PersonNode(transform.position + new Vector3(0, 2.5f), new Vector2(2.5f, 0.25f), 4f, PersonAction.Walking, PersonAction.PerformingTask, false),
+            new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, false),
+            new PersonNode(PersonManager.Instance.GetRandomSpawnPoint().position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, true),
+        });
     }
 }
