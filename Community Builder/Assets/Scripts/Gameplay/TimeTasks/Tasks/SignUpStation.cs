@@ -5,9 +5,6 @@ public class SignUpStation : TimeTask
     [Header("SignUpStation Customization")]
     [SerializeField] private int personSortingGroup;
 
-    [Header("SignUpStation References")]
-    [SerializeField] private GameObject personPrefab;
-
     private float personCooldown;
 
     protected override void Start()

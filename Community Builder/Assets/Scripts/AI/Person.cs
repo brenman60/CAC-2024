@@ -13,7 +13,6 @@ public class Person : MonoBehaviour
     private AIPath aiPath;
     private AIDestinationSetter destinationSetter;
     private Animator animator;
-    private SortingGroup sortingGroup;
 
     private Vector3 targetPosition = new Vector3(0, 0, 4);
     private float timeStill = -1f;
@@ -27,7 +26,6 @@ public class Person : MonoBehaviour
         animator = GetComponent<Animator>();
         aiPath = GetComponent<AIPath>();
         destinationSetter = GetComponent<AIDestinationSetter>();
-        sortingGroup = GetComponent<SortingGroup>();
 
         Color randomColor = personColors[Random.Range(0, personColors.Count)];
         foreach (PersonPart bodyPart in bodyParts)
@@ -36,34 +34,7 @@ public class Person : MonoBehaviour
 
     private void Update()
     {
-        sortingGroup.sortingOrder = -Mathf.RoundToInt(transform.position.y * 1000) - 10000;
-
         destinationSetter.target.position = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
-
-        if (aiPath.desiredVelocity.x > 2f || aiPath.desiredVelocity.y > 2f)
-        {
-            float angle = Mathf.Atan2(aiPath.desiredVelocity.y, aiPath.desiredVelocity.x) * Mathf.Rad2Deg;
-            if (angle >= -45 && angle < 45)
-            {
-                // Facing right
-                transform.rotation = Quaternion.Euler(0, -90, 90);
-            }
-            else if (angle >= 45 && angle < 135)
-            {
-                // Facing up
-                transform.rotation = Quaternion.Euler(90, -90, 90);
-            }
-            else if (angle >= 135 || angle < -135)
-            {
-                // Facing left
-                transform.rotation = Quaternion.Euler(0, 90, -90);
-            }
-            else if (angle >= -135 && angle < -45)
-            {
-                // Facing down
-                transform.rotation = Quaternion.Euler(-90, -90, 90);
-            }
-        }
 
         if (movementNodes.Count > 0)
         {
