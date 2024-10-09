@@ -8,10 +8,10 @@ public class SaveSystemManager : MonoBehaviour
         get
         {
             if (Instance_ == null)
-            {
                 Instance_ = Instantiate(Resources.Load<SaveSystemManager>("Utils/SaveSystemManager"));
+
+            if (!Instance_.loaded_)
                 Instance_.InitManagers();
-            }
 
             return Instance_;
         }
@@ -25,8 +25,37 @@ public class SaveSystemManager : MonoBehaviour
         }
     }
 
-    public Settings settings { get; private set; }
-    public GameData gameData { get; private set; }
+    private Settings settings_;
+    private GameData gameData_;
+
+    public Settings settings 
+    {
+        get
+        {
+            if (settings_ == null)
+                return new Settings();
+
+            return settings_;
+        }
+        private set
+        {
+            settings_ = value;
+        }
+    }
+    public GameData gameData 
+    {
+        get
+        {
+            if (gameData_ == null)
+                return new GameData();
+
+            return gameData_;
+        } 
+        private set
+        {
+            gameData_ = value;
+        }
+    }
 
     private bool loaded_ = false;
 
@@ -34,13 +63,14 @@ public class SaveSystemManager : MonoBehaviour
 
     private async void InitManagers()
     {
+        if (loaded_) return;
+        loaded_ = true;
+
         settings = new Settings();
         settings.PutSaveData(await SaveSystem.ReadFromFile(PresetFile.Settings));
 
         gameData = new GameData();
         gameData.PutSaveData(await SaveSystem.ReadFromFile(PresetFile.GameData));
-
-        loaded_ = true;
     }
 
     private async void OnApplicationQuit()

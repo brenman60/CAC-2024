@@ -7,6 +7,7 @@ public class TimeTask : MonoBehaviour, ISaveData
     [Header("Customization")]
     [SerializeField] private float completionTime = 5f;
     [SerializeField] protected float defaultEarnings = 1f;
+    [SerializeField] private float costGrowthFactor = 1.5f;
 
     public event Action levelChanged;
 
@@ -14,10 +15,29 @@ public class TimeTask : MonoBehaviour, ISaveData
     public int level
     {
         get { return level_; }
-        private set
+        set
         {
             levelChanged?.Invoke();
-            level_ = value;
+            level_ = Mathf.Clamp(value, 1, maxLevel);
+        }
+    }
+
+    public float upgradeCost
+    {
+        get
+        {
+            // 100 is base price
+            // basically interest rate formula but for cost
+            return 100f * Mathf.Pow(costGrowthFactor, level_ - 1);
+        }
+    }
+
+    public const int maxLevel = 10;
+    public bool isMaxLevel
+    {
+        get
+        {
+            return level >= maxLevel;
         }
     }
 

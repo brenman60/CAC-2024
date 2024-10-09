@@ -10,11 +10,13 @@ public class GameManager : MonoBehaviour, ISaveData
     public static GameManager Instance { get; private set; }
 
     public static event EventHandler<RoomManager> screenTapped;
+    public static event Action<RoomManager> roomChanged;
 
     [SerializeField] private Vector3 cameraRoomOffset;
     [SerializeField] private Vector3 cameraRoomRotation;
     [Space(20), SerializeField] private RoomManager[] rooms;
-    private RoomManager currentRoom;
+
+    public RoomManager currentRoom { get; private set; }
 
     private Camera mainCam;
 
@@ -81,6 +83,9 @@ public class GameManager : MonoBehaviour, ISaveData
                 closestRoom = room;
             else if ((room.transform.position - position).sqrMagnitude < (closestRoom.transform.position - position).sqrMagnitude)
                 closestRoom = room;
+
+        if (closestRoom != currentRoom)
+            roomChanged?.Invoke(closestRoom);
 
         currentRoom = closestRoom;
     }

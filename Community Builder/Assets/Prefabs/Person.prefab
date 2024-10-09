@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 3
+  radius: 5
   height: 0.01
   canMove: 1
   maxSpeed: 3

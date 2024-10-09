@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour, ISaveData
 {
+    [Header("Customization")]
+    public string roomName = "Room Name";
+    [Header("References")]
     [SerializeField] private List<TimeTask> tasks = new List<TimeTask>();
     public GameObject roomDoor;
 

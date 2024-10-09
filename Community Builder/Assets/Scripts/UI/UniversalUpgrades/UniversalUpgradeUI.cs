@@ -20,12 +20,6 @@ public class UniversalUpgradeUI : MonoBehaviour
     {
         if (SaveSystemManager.loaded)
             UpdateLevelText();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            float currentMoney = SaveSystemManager.Instance.gameData.GetData<float, string>("Money");
-            SaveSystemManager.Instance.gameData.SetData("Money", currentMoney + 10f);
-        }
     }
 
     private void UpdateLevelText()

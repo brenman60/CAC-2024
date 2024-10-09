@@ -16,6 +16,12 @@ public class GameData : ISaveData
 
     public T GetData<T, K>(K key)
     {
+        if (!gameData.ContainsKey(key))
+        {
+            object convertedDefault = Convert.ChangeType(defaultGameData[key], typeof(T));
+            return (T)convertedDefault;
+        }
+
         object converted = Convert.ChangeType(gameData[key], typeof(T));
         return (T)converted;
     }

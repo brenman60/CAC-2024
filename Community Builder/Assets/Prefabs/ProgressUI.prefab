@@ -609,8 +609,8 @@ MonoBehaviour:
   m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 32
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'lv: 0'
+  m_text: lvl 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7700cc51abb299a4babfb4809b84acc7, type: 2}
   m_sharedMaterial: {fileID: -880458755509331534, guid: 7700cc51abb299a4babfb4809b84acc7, type: 2}
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.35
+  m_fontSize: 0.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1765,8 +1765,8 @@ MonoBehaviour:
   m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 32
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 25
+  m_PixelsPerUnitMultiplier: 75
 --- !u!1 &3557439982829166612
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,7 +2254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.45882356, g: 0.8702854, b: 1, a: 0.6745098}
+  m_Color: {r: 0.45882356, g: 0.67464054, b: 1, a: 0.6745098}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2270,7 +2270,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 25
+  m_PixelsPerUnitMultiplier: 75
 --- !u!1 &4862670879139116529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2571,6 +2571,9 @@ MonoBehaviour:
   - {fileID: 4890478427060684303}
   - {fileID: 2546848112502997664}
   - {fileID: 7075813640822549747}
+  levelText: {fileID: 4320111119509245982}
+  upgradeCostText: {fileID: 2648229024194483442}
+  upgradeButton: {fileID: 647120816789049491}
 --- !u!225 &6675179943416446008
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3362,9 +3365,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UniversalUpgradeUI, Assembly-CSharp
-        m_MethodName: PurchaseUpgrade
+      - m_Target: {fileID: 6939560183523471745}
+        m_TargetAssemblyTypeName: ProgressUI, Assembly-CSharp
+        m_MethodName: UpgradeTask
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3430,7 +3433,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8375301173168106474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000000040976}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000000037251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3440,8 +3443,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.12163}
-  m_SizeDelta: {x: 0, y: 0.39325}
+  m_AnchoredPosition: {x: 0, y: -0.113}
+  m_SizeDelta: {x: 0, y: 0.31825}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1397697062293008431
 MonoBehaviour:
