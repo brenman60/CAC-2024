@@ -5,6 +5,7 @@ using UnityEngine;
 public class TimeTask : MonoBehaviour, ISaveData
 {
     [Header("Customization")]
+    [SerializeField] private float purchaseCost = 100f;
     [SerializeField] private float completionTime = 5f;
     [SerializeField] protected float defaultEarnings = 1f;
     [SerializeField] private float costGrowthFactor = 1.5f;
