@@ -541,7 +541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8912056335204482741}
   - component: {fileID: 5881118734781179851}
-  - component: {fileID: 4869177048088757415}
+  - component: {fileID: 7193785522084296987}
   - component: {fileID: 9085480894915865665}
   - component: {fileID: 7024764818754867629}
   - component: {fileID: 861242303150061911}
@@ -614,8 +614,8 @@ MonoBehaviour:
   - {r: 0.7529412, g: 0.49411765, b: 0.5821096, a: 1}
   - {r: 0.7529412, g: 0.49934834, b: 0.49411765, a: 1}
   - {r: 0.7529412, g: 0.6081652, b: 0.49411765, a: 1}
---- !u!65 &4869177048088757415
-BoxCollider:
+--- !u!136 &7193785522084296987
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -632,9 +632,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 2.26, z: 1}
-  m_Center: {x: 0, y: -1.4266157, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.2547941
+  m_Direction: 1
+  m_Center: {x: 0, y: -1.4322664, z: 0}
 --- !u!54 &9085480894915865665
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -660,7 +662,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &7024764818754867629
 Animator:

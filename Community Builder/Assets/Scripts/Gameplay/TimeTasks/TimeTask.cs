@@ -5,7 +5,7 @@ using UnityEngine;
 public class TimeTask : MonoBehaviour, ISaveData
 {
     [Header("Customization")]
-    [SerializeField] private float purchaseCost = 100f;
+    public float purchaseCost = 100f;
     [SerializeField] private float completionTime = 5f;
     [SerializeField] protected float defaultEarnings = 1f;
     [SerializeField] private float costGrowthFactor = 1.5f;
@@ -46,7 +46,7 @@ public class TimeTask : MonoBehaviour, ISaveData
     public float maxTime { get { return completionTime; } }
     protected bool paused;
 
-    protected RoomManager taskRoom;
+    public RoomManager taskRoom { get; protected set; }
 
     protected virtual void Awake()
     {

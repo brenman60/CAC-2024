@@ -13,12 +13,23 @@ public class ProgressUI : MonoBehaviour
     [SerializeField] private UpgradeButton upgradeButton;
 
     private TimeTask assignedTask;
+    private CanvasGroup canvasGroup;
+    private bool visible;
 
     private void Start()
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
 
         assignedTask = GetComponentInParent<TimeTask>();
+        canvasGroup = GetComponent<CanvasGroup>();
+
+        GameManager.roomChanged += RoomChanged;
+        visible = GameManager.Instance.currentRoom == assignedTask.taskRoom;
+    }
+
+    private void RoomChanged(RoomManager newRoom)
+    {
+        visible = newRoom == assignedTask.taskRoom;
     }
 
     private void Update()
@@ -31,6 +42,7 @@ public class ProgressUI : MonoBehaviour
         upgradeButton.purchasable = currentMoney >= assignedTask.upgradeCost && !assignedTask.isMaxLevel;
 
         ReloadLevelUI();
+        UpdateCanvasGroup();
     }
 
     private void ReloadLevelUI()
@@ -42,6 +54,12 @@ public class ProgressUI : MonoBehaviour
             int level = int.Parse(levelUI.name);
             levelUI.isOn = level <= assignedTask.level;
         }
+    }
+
+    private void UpdateCanvasGroup()
+    {
+        canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, visible ? 1f : 0f, Time.deltaTime * 5f);
+        canvasGroup.interactable = visible;
     }
 
     public void UpgradeTask()

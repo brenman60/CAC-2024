@@ -10,6 +10,27 @@ public class RoomManager : MonoBehaviour, ISaveData
     [SerializeField] private List<TimeTask> tasks = new List<TimeTask>();
     public GameObject roomDoor;
 
+    public TimeTask HasUnboughtTask()
+    {
+        foreach (TimeTask task in tasks)
+            if (!task.gameObject.activeSelf)
+                return task;
+
+        return null;
+    }
+
+    public void BuyTask()
+    {
+        TimeTask nextPurchasable = HasUnboughtTask();
+
+        float currentMoney = SaveSystemManager.Instance.gameData.GetData<float, string>("Money");
+        SaveSystemManager.Instance.gameData.SetData("Money", currentMoney - nextPurchasable.purchaseCost);
+
+        nextPurchasable.gameObject.SetActive(true);
+
+        AstarPath.active.Scan();
+    }
+
     public string GetSaveData()
     {
         List<string> tasksData = new List<string>();
@@ -18,7 +39,7 @@ public class RoomManager : MonoBehaviour, ISaveData
             string[] taskData = new string[3]
             {
                 task.name,
-                task.enabled.ToString(),
+                task.gameObject.activeSelf.ToString(),
                 task.GetSaveData(),
             };
 
@@ -38,11 +59,13 @@ public class RoomManager : MonoBehaviour, ISaveData
             {
                 if (task.name == taskData[0])
                 {
-                    task.enabled = bool.Parse(taskData[1]);
+                    task.gameObject.SetActive(bool.Parse(taskData[1]));
                     task.PutSaveData(taskData[2]);
                     break;
                 }
             }
         }
+
+        AstarPath.active.Scan();
     }
 }
