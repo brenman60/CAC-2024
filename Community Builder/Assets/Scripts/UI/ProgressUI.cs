@@ -47,7 +47,7 @@ public class ProgressUI : MonoBehaviour
 
     private void ReloadLevelUI()
     {
-        levelText.text = "Lvl " + assignedTask.level;
+        levelText.text = assignedTask.level.ToString();
 
         foreach (Toggle levelUI in levelUIs)
         {

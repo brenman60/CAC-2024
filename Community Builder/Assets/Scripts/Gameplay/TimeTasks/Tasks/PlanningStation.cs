@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class StudyStation : TimeTask
+public class PlanningStation : TimeTask
 {
-    [Header("StudyStation References")]
+    [Header("PlanningStation References")]
     [SerializeField] private Transform personPathfindingAnchor;
 
     private float personCooldown;
@@ -36,7 +36,7 @@ public class StudyStation : TimeTask
         PersonManager.Instance.SpawnPerson(new System.Collections.Generic.List<PersonNode>()
         {
             new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, false),
-            new PersonNode(personPathfindingAnchor.position, new Vector3(0.25f, 0f, 0.25f), 30f, PersonAction.Walking, PersonAction.Idle, false),
+            new PersonNode(personPathfindingAnchor.position, Vector2.zero, 25f, PersonAction.Walking, PersonAction.Idle, false),
             new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, false),
             new PersonNode(PersonManager.Instance.GetRandomSpawnPoint().position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, true),
         });

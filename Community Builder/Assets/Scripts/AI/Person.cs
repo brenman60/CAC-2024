@@ -52,7 +52,7 @@ public class Person : MonoBehaviour
         if (movementNodes.Count > 0)
         {
             PersonNode currentNode = movementNodes[0];
-            if ((transform.position - destinationSetter.target.position).sqrMagnitude <= 3f * 3f)
+            if ((transform.position - destinationSetter.target.position).sqrMagnitude <= 2.5f * 2.5f)
             {
                 currentAction = currentNode.waitingAction;
 

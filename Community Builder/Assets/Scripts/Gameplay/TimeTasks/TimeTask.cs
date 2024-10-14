@@ -50,7 +50,6 @@ public class TimeTask : MonoBehaviour, ISaveData
 
     protected virtual void Awake()
     {
-        time = UnityEngine.Random.Range(0f, completionTime);
         GameManager.screenTapped += ScreenTapped;
     }
 

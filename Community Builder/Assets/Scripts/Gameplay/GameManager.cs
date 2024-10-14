@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour, ISaveData
         }
 
         completeDrag /= new Vector2(Screen.width, Screen.height);
-        completeDrag = new Vector2(Mathf.Clamp(completeDrag.x, -0.5f, 0.5f), 0);
+        completeDrag = new Vector2(Mathf.Clamp(completeDrag.x, -0.2f, 0.2f), 0);
 
         SnapPositionToRoom(mainCam.transform.position - (new Vector3(completeDrag.x * 80f, 0)));
     }
