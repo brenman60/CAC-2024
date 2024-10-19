@@ -775,7 +775,7 @@ MonoBehaviour:
   purchaseCost: 3500
   level1Cost: 1200
   completionTime: 360
-  defaultEarnings: 50
+  defaultEarnings: 70
   costGrowthFactor: 2
   moneyPopupPrefab: {fileID: 5272185152330776784, guid: d5c8969cabee87541b2e2d56d561fc75, type: 3}
   moneyPopupPoint: {fileID: 2022651448}
@@ -13861,7 +13861,7 @@ MonoBehaviour:
   purchaseCost: 3500
   level1Cost: 1200
   completionTime: 390
-  defaultEarnings: 55
+  defaultEarnings: 75
   costGrowthFactor: 2
   moneyPopupPrefab: {fileID: 5272185152330776784, guid: d5c8969cabee87541b2e2d56d561fc75, type: 3}
   moneyPopupPoint: {fileID: 1606064653}
@@ -23120,7 +23120,7 @@ MonoBehaviour:
   nextLevelColor: '#34ebc0'
   costColor: '#ebcf34'
   firstCost: 5
-  costScaling: 0.5
+  costScaling: 0.35
   levelText: {fileID: 554332818}
   purchaseButtonCanvasGroup: {fileID: 2117310130}
 --- !u!1 &828986341
@@ -38905,7 +38905,7 @@ MonoBehaviour:
   purchaseCost: 3500
   level1Cost: 1200
   completionTime: 480
-  defaultEarnings: 70
+  defaultEarnings: 90
   costGrowthFactor: 2
   moneyPopupPrefab: {fileID: 5272185152330776784, guid: d5c8969cabee87541b2e2d56d561fc75, type: 3}
   moneyPopupPoint: {fileID: 364329315}
@@ -39870,7 +39870,7 @@ MonoBehaviour:
   purchaseCost: 3500
   level1Cost: 1200
   completionTime: 450
-  defaultEarnings: 65
+  defaultEarnings: 85
   costGrowthFactor: 2
   moneyPopupPrefab: {fileID: 5272185152330776784, guid: d5c8969cabee87541b2e2d56d561fc75, type: 3}
   moneyPopupPoint: {fileID: 98803483}
@@ -51149,7 +51149,7 @@ MonoBehaviour:
   purchaseCost: 3500
   level1Cost: 1200
   completionTime: 420
-  defaultEarnings: 60
+  defaultEarnings: 80
   costGrowthFactor: 2
   moneyPopupPrefab: {fileID: 5272185152330776784, guid: d5c8969cabee87541b2e2d56d561fc75, type: 3}
   moneyPopupPoint: {fileID: 770985520}
@@ -57712,7 +57712,7 @@ MonoBehaviour:
   purchaseCost: 3500
   level1Cost: 1200
   completionTime: 510
-  defaultEarnings: 75
+  defaultEarnings: 95
   costGrowthFactor: 2
   moneyPopupPrefab: {fileID: 5272185152330776784, guid: d5c8969cabee87541b2e2d56d561fc75, type: 3}
   moneyPopupPoint: {fileID: 1767079393}
