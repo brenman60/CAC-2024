@@ -22,18 +22,12 @@ public class ProgressUI : MonoBehaviour
 
         assignedTask = GetComponentInParent<TimeTask>();
         canvasGroup = GetComponent<CanvasGroup>();
-
-        GameManager.roomChanged += RoomChanged;
-        visible = GameManager.Instance.currentRoom == assignedTask.taskRoom;
-    }
-
-    private void RoomChanged(RoomManager newRoom)
-    {
-        visible = newRoom == assignedTask.taskRoom;
     }
 
     private void Update()
     {
+        visible = GameManager.Instance.currentRoom == assignedTask.taskRoom;
+
         progressSlider.maxValue = assignedTask.maxTime;
         progressSlider.value = assignedTask.time;
 

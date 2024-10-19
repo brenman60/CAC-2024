@@ -56,6 +56,12 @@ public class Person : MonoBehaviour
             {
                 currentAction = currentNode.waitingAction;
 
+                if (currentNode.waitingRotation != Quaternion.identity)
+                {
+                    aiPath.enableRotation = false;
+                    transform.rotation = Quaternion.Lerp(transform.rotation, currentNode.waitingRotation, Time.deltaTime * 4f);
+                }
+
                 timeAtCurrentNode += Time.deltaTime;
                 if (timeAtCurrentNode >= currentNode.waitingTime)
                 {
@@ -71,6 +77,7 @@ public class Person : MonoBehaviour
             }
             else
             {
+                aiPath.enableRotation = true;
                 currentAction = currentNode.movingToAction;
             }
         }
@@ -104,15 +111,17 @@ public struct PersonNode
     public Vector3 position;
     public Vector3 positionRadius;
     public float waitingTime;
+    public Quaternion waitingRotation;
     public PersonAction movingToAction;
     public PersonAction waitingAction;
     public bool killPersonOnCompletion;
 
-    public PersonNode(Vector3 position, Vector3 positionRadius, float waitingTime, PersonAction movingToAction, PersonAction waitingAction, bool killPersonOnCompletion)
+    public PersonNode(Vector3 position, Vector3 positionRadius, float waitingTime, Quaternion waitingRotation, PersonAction movingToAction, PersonAction waitingAction, bool killPersonOnCompletion)
     {
         this.position = position;
         this.positionRadius = positionRadius;
         this.waitingTime = waitingTime;
+        this.waitingRotation = waitingRotation;
         this.movingToAction = movingToAction;
         this.waitingAction = waitingAction;
         this.killPersonOnCompletion = killPersonOnCompletion;

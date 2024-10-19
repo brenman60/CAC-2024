@@ -35,10 +35,10 @@ public class StudyStation : TimeTask
 
         PersonManager.Instance.SpawnPerson(new System.Collections.Generic.List<PersonNode>()
         {
-            new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, false),
-            new PersonNode(personPathfindingAnchor.position, new Vector3(0.25f, 0f, 0.25f), 30f, PersonAction.Walking, PersonAction.Idle, false),
-            new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, false),
-            new PersonNode(PersonManager.Instance.GetRandomSpawnPoint().position, Vector2.zero, 0f, PersonAction.Walking, PersonAction.Walking, true),
+            new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, Quaternion.identity, PersonAction.Walking, PersonAction.Walking, false),
+            new PersonNode(personPathfindingAnchor.position, new Vector3(0.25f, 0f, 0.25f), 30f, Quaternion.Inverse(personPathfindingAnchor.rotation), PersonAction.Walking, PersonAction.Idle, false),
+            new PersonNode(taskRoom.roomDoor.transform.position, Vector2.zero, 0f, Quaternion.identity, PersonAction.Walking, PersonAction.Walking, false),
+            new PersonNode(PersonManager.Instance.GetRandomSpawnPoint().position, Vector2.zero, 0f, Quaternion.identity, PersonAction.Walking, PersonAction.Walking, true),
         });
     }
 }

@@ -6,9 +6,14 @@ public class TimeTask : MonoBehaviour, ISaveData
 {
     [Header("Customization")]
     public float purchaseCost = 100f;
+    [SerializeField] private float level1Cost = 100;
     [SerializeField] private float completionTime = 5f;
     [SerializeField] protected float defaultEarnings = 1f;
     [SerializeField] private float costGrowthFactor = 1.5f;
+
+    [Header("References")]
+    [SerializeField] private GameObject moneyPopupPrefab;
+    [SerializeField] private Transform moneyPopupPoint;
 
     public event Action levelChanged;
 
@@ -29,7 +34,7 @@ public class TimeTask : MonoBehaviour, ISaveData
         {
             // 100 is base price
             // basically interest rate formula but for cost
-            return 100f * Mathf.Pow(costGrowthFactor, level_ - 1);
+            return level1Cost * Mathf.Pow(costGrowthFactor, level_ - 1);
         }
     }
 
@@ -94,7 +99,12 @@ public class TimeTask : MonoBehaviour, ISaveData
         if (!SaveSystemManager.loaded) return;
 
         float currentMoney = SaveSystemManager.Instance.gameData.GetData<float, string>("Money");
-        SaveSystemManager.Instance.gameData.SetData("Money", currentMoney + (defaultEarnings * Mathf.Pow(level, 1.5f)));
+        float earnings = defaultEarnings * Mathf.Pow(level, 1.5f) + UnityEngine.Random.Range(-2, 3);
+        SaveSystemManager.Instance.gameData.SetData("Money", earnings + currentMoney);
+
+        MoneyPopup moneyPopup = Instantiate(moneyPopupPrefab).GetComponent<MoneyPopup>();
+        moneyPopup.money = earnings;
+        moneyPopup.transform.position = moneyPopupPoint.position + new Vector3(UnityEngine.Random.Range(0, 2) == 0 ? -1.5f : 1.5f, -0.25f, -0.1f);
     }
 
     public string GetSaveData()
