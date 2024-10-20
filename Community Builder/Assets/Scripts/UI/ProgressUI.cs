@@ -64,6 +64,8 @@ public class ProgressUI : MonoBehaviour
             SaveSystemManager.Instance.gameData.SetData("Money", currentMoney - assignedTask.upgradeCost);
 
             assignedTask.level++;
+
+            SoundManager.Instance.PlayAudio("MoneyPurchase", true, 0.5f, transform);
         }
     }
 }

@@ -105,6 +105,8 @@ public class TimeTask : MonoBehaviour, ISaveData
         MoneyPopup moneyPopup = Instantiate(moneyPopupPrefab).GetComponent<MoneyPopup>();
         moneyPopup.money = earnings;
         moneyPopup.transform.position = moneyPopupPoint.position + new Vector3(UnityEngine.Random.Range(0, 2) == 0 ? -1.5f : 1.5f, -0.25f, -0.1f);
+
+        SoundManager.Instance.PlayAudio("MoneyCollect", true, 0.1f, moneyPopupPoint);
     }
 
     public string GetSaveData()

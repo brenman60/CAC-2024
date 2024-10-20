@@ -30,4 +30,9 @@ public class UpgradeButton : MonoBehaviour
         buttonBackground.color = purchasable ? greenButtonColor : redButtonColor;
         purchaseText.colorGradientPreset = purchasable ? greenTextGradient : redTextGradient;
     }
+
+    public void PlayPurchaseSound()
+    {
+        SoundManager.Instance.PlayAudio("MoneyPurchase", true, 0.5f);
+    }
 }

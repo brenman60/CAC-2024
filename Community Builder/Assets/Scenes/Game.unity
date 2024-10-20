@@ -49499,7 +49499,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5bbebe52ce64d244395f4ccb9c684a47, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.025
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -63839,6 +63839,18 @@ MonoBehaviour:
       - m_Target: {fileID: 684552259}
         m_TargetAssemblyTypeName: NewTask, Assembly-CSharp
         m_MethodName: PurchaseTask
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2048238725}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: PlayPurchaseSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

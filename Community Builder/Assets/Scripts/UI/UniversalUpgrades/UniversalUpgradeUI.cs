@@ -39,5 +39,7 @@ public class UniversalUpgradeUI : MonoBehaviour
 
         float currentMoney = SaveSystemManager.Instance.gameData.GetData<float, string>("Money");
         SaveSystemManager.Instance.gameData.SetData("Money", currentMoney - cost);
+
+        SoundManager.Instance.PlayAudio("MoneyPurchase", true, 0.5f);
     }
 }
